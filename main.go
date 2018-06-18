@@ -9,12 +9,12 @@ import (
 func onConnection(so socketio.Socket) {
 	log.Info("client connected...")
 
-	so.Join("echo")
-
+	// handle event "echo"
 	so.On("echo", func(msg string) {
 		log.Debug("echo")
 		log.Infof("echo \"%s\"", msg)
 
+		// call event "echo" with data
 		err := so.Emit("echo", msg, func(so socketio.Socket, data string) {
 			log.Debugf("Client ACK with data: ", data)
 		})
